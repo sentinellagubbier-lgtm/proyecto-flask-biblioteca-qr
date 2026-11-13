@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      name="description"
+      content="Biblioteca escolar: préstamo de libros con reserva temporal y fichas con código QR."
+    >
+    <title>{% block titulo %}Biblioteca{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/estilos.css') }}"
+    >
+  </head>
+  <body>
+    <header class="encabezado">
+      <div class="contenedor encabezado-contenido">
+        <div>
+          <p class="etiqueta clara">Biblioteca escolar · Flask y MongoDB Atlas</p>
+          <h1>Biblioteca con reserva temporal</h1>
+          <p class="subtitulo">
+            Aparta tu libro, confirma el préstamo y consulta su ficha con un código QR
+          </p>
+        </div>
+        <div class="estado-api" id="estadoApi">Comprobando API...</div>
+      </div>
+    </header>
+
+    {% block contenido %}{% endblock %}
+
+    <footer>
+      Actividad 2 - Reserva temporal - CBTIS - Python, Flask y MongoDB Atlas
+    </footer>
+
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

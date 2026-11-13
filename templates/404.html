@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block titulo %}Libro no encontrado{% endblock %}
+{% block contenido %}
+<main class="contenedor principal">
+  <section class="panel ficha vacio">
+    <div class="ficha-sello">NO ENCONTRADO</div>
+    <h2>Este libro no está en el catálogo</h2>
+    <p class="ayuda">
+      Puede que la ficha se haya eliminado o que el código QR esté dañado.
+    </p>
+    <a class="boton primario" href="{{ url_for('inicio') }}">Volver al catálogo</a>
+  </section>
+</main>
+<script>
+  // Esta pagina no usa la API; se oculta el indicador de estado.
+  var api = document.getElementById("estadoApi");
+  if (api) api.style.display = "none";
+</script>
+{% endblock %}

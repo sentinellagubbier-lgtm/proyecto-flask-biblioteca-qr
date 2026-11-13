@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block titulo %}{{ libro.evento }} - Ficha del libro{% endblock %}
+
+{% block contenido %}
+<main class="contenedor principal">
+  <section class="panel ficha">
+    <div class="ficha-sello">FICHA DEL LIBRO</div>
+    <p class="etiqueta">{{ libro.zona }}</p>
+    <h2 class="ficha-titulo">{{ libro.evento }}</h2>
+
+    {% if libro.estado == 'disponible' %}
+      <span class="insignia disponible grande">Disponible</span>
+    {% elif libro.estado == 'reservado' %}
+      <span class="insignia reservado grande">Apartado</span>
+    {% else %}
+      <span class="insignia comprado grande">Prestado</span>
+    {% endif %}
+
+    <div class="ficha-datos">
+      <div>
+        <small>Código del ejemplar</small>
+        <p><strong>{{ libro.asiento }}</strong></p>
+      </div>
+      <div>
+        <small>Sección</small>
+        <p>{{ libro.zona }}</p>
+      </div>
+      <div>
+        <small>Valor de reposición</small>
+        <p class="precio-ficha" data-precio="{{ libro.precio }}">{{ libro.precio }}</p>
+      </div>
+      <div>
+        <small>Última actualización</small>
+        <p class="fecha-ficha" data-fecha="{{ libro.actualizado_en }}">{{ libro.actualizado_en }}</p>
+      </div>
+    </div>
+
+    {% if libro.estado == 'reservado' %}
+      <div class="mensaje-vivo">
+        Este libro está apartado y se liberará solo si no se confirma a tiempo.
+      </div>
+    {% else %}
+      <div class="mensaje-vivo">
+        Esta información se consultó en la base de datos al abrir la ficha.
+      </div>
+    {% endif %}
+
+    <a class="boton primario" href="{{ url_for('inicio') }}">Ir al catálogo</a>
+  </section>
+</main>
+<script>
+  // Esta pagina no usa la API; se oculta el indicador de estado.
+  var api = document.getElementById("estadoApi");
+  if (api) api.style.display = "none";
+
+  document.querySelectorAll(".precio-ficha").forEach(function (el) {
+    el.textContent = new Intl.NumberFormat("es-MX", {
+      style: "currency", currency: "MXN"
+    }).format(Number(el.dataset.precio));
+  });
+  document.querySelectorAll(".fecha-ficha").forEach(function (el) {
+    var f = new Date(el.dataset.fecha);
+    if (!isNaN(f)) el.textContent = f.toLocaleString("es-MX");
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: crud-flask-reserva-temporal
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: MONGO_URI
+        sync: false
+      - key: MONGO_DB
+        value: reserva_boletos
+      - key: RESERVA_MINUTOS
+        value: 5
+      - key: SECRET_KEY
+        generateValue: true
+      # Opcional: direccion publica para los QR si saliera incorrecta
+      # - key: APP_BASE_URL
+      #   value: https://nombre-de-tu-aplicacion.onrender.com
